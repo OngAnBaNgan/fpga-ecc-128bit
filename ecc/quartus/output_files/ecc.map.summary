@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sun Sep 21 16:41:33 2025
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : ecc
+Top-level Entity Name : spi_ecc_128bit
+Family : Cyclone IV E
+Total logic elements : 2,738
+    Total combinational functions : 1,561
+    Dedicated logic registers : 2,400
+Total registers : 2400
+Total pins : 12
+Total virtual pins : 0
+Total memory bits : 384
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

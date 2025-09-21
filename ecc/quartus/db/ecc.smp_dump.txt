@@ -1,0 +1,36 @@
+
+State Machine - |spi_ecc_128bit|ecc_state
+Name ecc_state.ECC_DONE ecc_state.ECC_COMPUTE ecc_state.ECC_LOAD ecc_state.ECC_IDLE 
+ecc_state.ECC_IDLE 0 0 0 0 
+ecc_state.ECC_LOAD 0 0 1 1 
+ecc_state.ECC_COMPUTE 0 1 0 1 
+ecc_state.ECC_DONE 1 0 0 1 
+
+State Machine - |spi_ecc_128bit|spi_state
+Name spi_state.SPI_IDLE spi_state.SPI_DATA spi_state.SPI_ADDR 
+spi_state.SPI_IDLE 0 0 0 
+spi_state.SPI_ADDR 1 0 1 
+spi_state.SPI_DATA 1 1 0 
+
+State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|core_state
+Name core_state.CORE_DONE core_state.CORE_SQR core_state.CORE_ADD core_state.CORE_MULT core_state.CORE_LOAD core_state.CORE_IDLE 
+core_state.CORE_IDLE 0 0 0 0 0 0 
+core_state.CORE_LOAD 0 0 0 0 1 1 
+core_state.CORE_MULT 0 0 0 1 0 1 
+core_state.CORE_ADD 0 0 1 0 0 1 
+core_state.CORE_SQR 0 1 0 0 0 1 
+core_state.CORE_DONE 1 0 0 0 0 1 
+
+State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|alu_state
+Name alu_state.ALU_IDLE alu_state.ALU_COMPLETE alu_state.ALU_COMPUTE 
+alu_state.ALU_IDLE 0 0 0 
+alu_state.ALU_COMPUTE 1 0 1 
+alu_state.ALU_COMPLETE 1 1 0 
+
+State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|state
+Name state.DONE state.COMPUTE state.CYCLE1 state.DATAIN state.IDLE 
+state.IDLE 0 0 0 0 0 
+state.DATAIN 0 0 0 1 1 
+state.CYCLE1 0 0 1 0 1 
+state.COMPUTE 0 1 0 0 1 
+state.DONE 1 0 0 0 1 

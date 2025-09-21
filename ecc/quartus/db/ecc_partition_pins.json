@@ -1,0 +1,57 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "spi_miso",
+					"strict" : false
+				},
+				{
+					"name" : "done_gpio",
+					"strict" : false
+				},
+				{
+					"name" : "debug_leds[0]",
+					"strict" : false
+				},
+				{
+					"name" : "debug_leds[1]",
+					"strict" : false
+				},
+				{
+					"name" : "debug_leds[2]",
+					"strict" : false
+				},
+				{
+					"name" : "debug_leds[3]",
+					"strict" : false
+				},
+				{
+					"name" : "spi_clk",
+					"strict" : false
+				},
+				{
+					"name" : "spi_cs_n",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "rst_n",
+					"strict" : false
+				},
+				{
+					"name" : "enable_gpio",
+					"strict" : false
+				},
+				{
+					"name" : "spi_mosi",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

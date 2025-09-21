@@ -1,0 +1,2 @@
+Info (10281): Verilog HDL Declaration information at spi_ecc_128bit.v(25): object "SPI_ADDR" differs only in case from object "spi_addr" in the same scope File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v Line: 25
+Info (10281): Verilog HDL Declaration information at spi_ecc_128bit.v(32): object "ECC_DONE" differs only in case from object "ecc_done" in the same scope File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v Line: 32

@@ -1,0 +1,604 @@
+Analysis & Synthesis report for ecc
+Sun Sep 21 16:41:33 2025
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. State Machine - |spi_ecc_128bit|ecc_state
+ 10. State Machine - |spi_ecc_128bit|spi_state
+ 11. State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|core_state
+ 12. State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|alu_state
+ 13. State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|state
+ 14. Registers Removed During Synthesis
+ 15. General Register Statistics
+ 16. Inverted Register Statistics
+ 17. Registers Packed Into Inferred Megafunctions
+ 18. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 19. Source assignments for ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0|shift_taps_dpm:auto_generated|altsyncram_bo31:altsyncram4
+ 20. Parameter Settings for User Entity Instance: ecc_top_128bit:ecc_core|main_128bit:main_ins
+ 21. Parameter Settings for Inferred Entity Instance: ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0
+ 22. altshift_taps Parameter Settings by Entity Instance
+ 23. Port Connectivity Checks: "ecc_top_128bit:ecc_core|core1_128bit:core1_ins"
+ 24. Port Connectivity Checks: "ecc_top_128bit:ecc_core|main_128bit:main_ins"
+ 25. Post-Synthesis Netlist Statistics for Top Partition
+ 26. Elapsed Time Per Partition
+ 27. Analysis & Synthesis Messages
+ 28. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sun Sep 21 16:41:33 2025       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; ecc                                         ;
+; Top-level Entity Name              ; spi_ecc_128bit                              ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 2,738                                       ;
+;     Total combinational functions  ; 1,561                                       ;
+;     Dedicated logic registers      ; 2,400                                       ;
+; Total registers                    ; 2400                                        ;
+; Total pins                         ; 12                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 384                                         ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE6E22C8        ;                    ;
+; Top-level entity name                                            ; spi_ecc_128bit     ; ecc                ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Maximum processors allowed for parallel compilation              ; 2                  ;                    ;
+; DSP Block Balancing                                              ; DSP blocks         ; Auto               ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 2           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.1%      ;
++----------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                        ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                    ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; ../rtl/spi_ecc_128bit.v          ; yes             ; User Verilog HDL File        ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v           ;         ;
+; ../rtl/ecc_top_128bit.v          ; yes             ; User Verilog HDL File        ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/ecc_top_128bit.v           ;         ;
+; ../rtl/main_128bit.v             ; yes             ; User Verilog HDL File        ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/main_128bit.v              ;         ;
+; ../rtl/core1_128bit.v            ; yes             ; User Verilog HDL File        ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/core1_128bit.v             ;         ;
+; ../rtl/ALU_128bit.v              ; yes             ; User Verilog HDL File        ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/ALU_128bit.v               ;         ;
+; altshift_taps.tdf                ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altshift_taps.tdf                                        ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altdpram.inc                                             ;         ;
+; lpm_counter.inc                  ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_counter.inc                                          ;         ;
+; lpm_compare.inc                  ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_compare.inc                                          ;         ;
+; lpm_constant.inc                 ; yes             ; Megafunction                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_constant.inc                                         ;         ;
+; db/shift_taps_dpm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/shift_taps_dpm.tdf  ;         ;
+; db/altsyncram_bo31.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/altsyncram_bo31.tdf ;         ;
+; db/add_sub_24e.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/add_sub_24e.tdf     ;         ;
+; db/cntr_6pf.tdf                  ; yes             ; Auto-Generated Megafunction  ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/cntr_6pf.tdf        ;         ;
+; db/cmpr_ogc.tdf                  ; yes             ; Auto-Generated Megafunction  ; C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/cmpr_ogc.tdf        ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 2,738     ;
+;                                             ;           ;
+; Total combinational functions               ; 1561      ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 525       ;
+;     -- 3 input functions                    ; 722       ;
+;     -- <=2 input functions                  ; 314       ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 1533      ;
+;     -- arithmetic mode                      ; 28        ;
+;                                             ;           ;
+; Total registers                             ; 2400      ;
+;     -- Dedicated logic registers            ; 2400      ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 12        ;
+; Total memory bits                           ; 384       ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 2493      ;
+; Total fan-out                               ; 14703     ;
+; Average fan-out                             ; 3.57      ;
++---------------------------------------------+-----------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                          ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                               ; Entity Name     ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
+; |spi_ecc_128bit                              ; 1561 (470)          ; 2400 (568)                ; 384         ; 0            ; 0       ; 0         ; 12   ; 0            ; |spi_ecc_128bit                                                                                                                                   ; spi_ecc_128bit  ; work         ;
+;    |ecc_top_128bit:ecc_core|                 ; 1091 (0)            ; 1832 (131)                ; 384         ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core                                                                                                           ; ecc_top_128bit  ; work         ;
+;       |core1_128bit:core1_ins|               ; 805 (270)           ; 1045 (521)                ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins                                                                                    ; core1_128bit    ; work         ;
+;          |ALU_128bit:alu_inst|               ; 535 (535)           ; 524 (524)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst                                                                ; ALU_128bit      ; work         ;
+;       |main_128bit:main_ins|                 ; 286 (279)           ; 656 (652)                 ; 384         ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins                                                                                      ; main_128bit     ; work         ;
+;          |altshift_taps:reg_Rb_rtl_0|        ; 7 (0)               ; 4 (0)                     ; 384         ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0                                                           ; altshift_taps   ; work         ;
+;             |shift_taps_dpm:auto_generated|  ; 7 (2)               ; 4 (2)                     ; 384         ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0|shift_taps_dpm:auto_generated                             ; shift_taps_dpm  ; work         ;
+;                |altsyncram_bo31:altsyncram4| ; 0 (0)               ; 0 (0)                     ; 384         ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0|shift_taps_dpm:auto_generated|altsyncram_bo31:altsyncram4 ; altsyncram_bo31 ; work         ;
+;                |cntr_6pf:cntr1|              ; 5 (5)               ; 2 (2)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0|shift_taps_dpm:auto_generated|cntr_6pf:cntr1              ; cntr_6pf        ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                 ;
++----------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; Name                                                                                                                                         ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
++----------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0|shift_taps_dpm:auto_generated|altsyncram_bo31:altsyncram4|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 3            ; 128          ; 3            ; 128          ; 384  ; None ;
++----------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------+
+; State Machine - |spi_ecc_128bit|ecc_state                                                                    ;
++-----------------------+--------------------+-----------------------+--------------------+--------------------+
+; Name                  ; ecc_state.ECC_DONE ; ecc_state.ECC_COMPUTE ; ecc_state.ECC_LOAD ; ecc_state.ECC_IDLE ;
++-----------------------+--------------------+-----------------------+--------------------+--------------------+
+; ecc_state.ECC_IDLE    ; 0                  ; 0                     ; 0                  ; 0                  ;
+; ecc_state.ECC_LOAD    ; 0                  ; 0                     ; 1                  ; 1                  ;
+; ecc_state.ECC_COMPUTE ; 0                  ; 1                     ; 0                  ; 1                  ;
+; ecc_state.ECC_DONE    ; 1                  ; 0                     ; 0                  ; 1                  ;
++-----------------------+--------------------+-----------------------+--------------------+--------------------+
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------+
+; State Machine - |spi_ecc_128bit|spi_state                                         ;
++--------------------+--------------------+--------------------+--------------------+
+; Name               ; spi_state.SPI_IDLE ; spi_state.SPI_DATA ; spi_state.SPI_ADDR ;
++--------------------+--------------------+--------------------+--------------------+
+; spi_state.SPI_IDLE ; 0                  ; 0                  ; 0                  ;
+; spi_state.SPI_ADDR ; 1                  ; 0                  ; 1                  ;
+; spi_state.SPI_DATA ; 1                  ; 1                  ; 0                  ;
++--------------------+--------------------+--------------------+--------------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|core_state                                                                    ;
++----------------------+----------------------+---------------------+---------------------+----------------------+----------------------+----------------------+
+; Name                 ; core_state.CORE_DONE ; core_state.CORE_SQR ; core_state.CORE_ADD ; core_state.CORE_MULT ; core_state.CORE_LOAD ; core_state.CORE_IDLE ;
++----------------------+----------------------+---------------------+---------------------+----------------------+----------------------+----------------------+
+; core_state.CORE_IDLE ; 0                    ; 0                   ; 0                   ; 0                    ; 0                    ; 0                    ;
+; core_state.CORE_LOAD ; 0                    ; 0                   ; 0                   ; 0                    ; 1                    ; 1                    ;
+; core_state.CORE_MULT ; 0                    ; 0                   ; 0                   ; 1                    ; 0                    ; 1                    ;
+; core_state.CORE_ADD  ; 0                    ; 0                   ; 1                   ; 0                    ; 0                    ; 1                    ;
+; core_state.CORE_SQR  ; 0                    ; 1                   ; 0                   ; 0                    ; 0                    ; 1                    ;
+; core_state.CORE_DONE ; 1                    ; 0                   ; 0                   ; 0                    ; 0                    ; 1                    ;
++----------------------+----------------------+---------------------+---------------------+----------------------+----------------------+----------------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------+
+; State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|alu_state ;
++------------------------+--------------------+------------------------+---------------------------------------+
+; Name                   ; alu_state.ALU_IDLE ; alu_state.ALU_COMPLETE ; alu_state.ALU_COMPUTE                 ;
++------------------------+--------------------+------------------------+---------------------------------------+
+; alu_state.ALU_IDLE     ; 0                  ; 0                      ; 0                                     ;
+; alu_state.ALU_COMPUTE  ; 1                  ; 0                      ; 1                                     ;
+; alu_state.ALU_COMPLETE ; 1                  ; 1                      ; 0                                     ;
++------------------------+--------------------+------------------------+---------------------------------------+
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------+
+; State Machine - |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|state    ;
++---------------+------------+---------------+--------------+--------------+------------+
+; Name          ; state.DONE ; state.COMPUTE ; state.CYCLE1 ; state.DATAIN ; state.IDLE ;
++---------------+------------+---------------+--------------+--------------+------------+
+; state.IDLE    ; 0          ; 0             ; 0            ; 0            ; 0          ;
+; state.DATAIN  ; 0          ; 0             ; 0            ; 1            ; 1          ;
+; state.CYCLE1  ; 0          ; 0             ; 1            ; 0            ; 1          ;
+; state.COMPUTE ; 0          ; 1             ; 0            ; 0            ; 1          ;
+; state.DONE    ; 1          ; 0             ; 0            ; 0            ; 1          ;
++---------------+------------+---------------+--------------+--------------+------------+
+
+
++-----------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                ;
++--------------------------------------------------------------+--------------------+
+; Register name                                                ; Reason for Removal ;
++--------------------------------------------------------------+--------------------+
+; ecc_state~8                                                  ; Lost fanout        ;
+; ecc_state~9                                                  ; Lost fanout        ;
+; spi_state~9                                                  ; Lost fanout        ;
+; ecc_top_128bit:ecc_core|core1_128bit:core1_ins|core_state~10 ; Lost fanout        ;
+; ecc_top_128bit:ecc_core|core1_128bit:core1_ins|core_state~11 ; Lost fanout        ;
+; ecc_top_128bit:ecc_core|core1_128bit:core1_ins|core_state~12 ; Lost fanout        ;
+; Total Number of Removed Registers = 6                        ;                    ;
++--------------------------------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 2400  ;
+; Number of registers using Synchronous Clear  ; 265   ;
+; Number of registers using Synchronous Load   ; 269   ;
+; Number of registers using Asynchronous Clear ; 1597  ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 1708  ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; debug_leds[0]~reg0                     ; 2       ;
+; spi_cs_prev                            ; 7       ;
+; spi_cs_sync                            ; 8       ;
+; Total number of inverted registers = 3 ;         ;
++----------------------------------------+---------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                                                                                         ;
++-------------------------------------------------------------+-----------------------------------------------------------+------------+
+; Register Name                                               ; Megafunction                                              ; Type       ;
++-------------------------------------------------------------+-----------------------------------------------------------+------------+
+; ecc_top_128bit:ecc_core|main_128bit:main_ins|reg_Ry[0..127] ; ecc_top_128bit:ecc_core|main_128bit:main_ins|reg_Rb_rtl_0 ; SHIFT_TAPS ;
+; ecc_top_128bit:ecc_core|main_128bit:main_ins|k[0..127]      ; ecc_top_128bit:ecc_core|main_128bit:main_ins|reg_Rb_rtl_0 ; SHIFT_TAPS ;
+; ecc_top_128bit:ecc_core|main_128bit:main_ins|reg_Rb[0..127] ; ecc_top_128bit:ecc_core|main_128bit:main_ins|reg_Rb_rtl_0 ; SHIFT_TAPS ;
++-------------------------------------------------------------+-----------------------------------------------------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------+
+; 4:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|cnt128[1]                               ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |spi_ecc_128bit|ecc_load_cnt[7]                                                                      ;
+; 4:1                ; 128 bits  ; 256 LEs       ; 128 LEs              ; 128 LEs                ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|alu_da[126]                           ;
+; 5:1                ; 128 bits  ; 384 LEs       ; 128 LEs              ; 256 LEs                ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|result[91]        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|compute_cycles[6] ;
+; 5:1                ; 127 bits  ; 381 LEs       ; 127 LEs              ; 254 LEs                ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|operand_b[118]    ;
+; 5:1                ; 127 bits  ; 381 LEs       ; 254 LEs              ; 127 LEs                ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|operand_a[108]    ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |spi_ecc_128bit|debug_leds[3]~reg0                                                                   ;
+; 6:1                ; 128 bits  ; 512 LEs       ; 256 LEs              ; 256 LEs                ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|alu_db[45]                            ;
+; 7:1                ; 128 bits  ; 512 LEs       ; 256 LEs              ; 256 LEs                ; Yes        ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|temp_result[14]   ;
+; 256:1              ; 7 bits    ; 1190 LEs      ; 154 LEs              ; 1036 LEs               ; Yes        ; |spi_ecc_128bit|spi_tx_byte[6]                                                                       ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst|alu_state         ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; No         ; |spi_ecc_128bit|Selector25                                                                           ;
+; 8:1                ; 3 bits    ; 15 LEs        ; 12 LEs               ; 3 LEs                  ; No         ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|state                                   ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 9 LEs                ; 3 LEs                  ; No         ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|core1_128bit:core1_ins|Selector0                             ;
+; 10:1               ; 2 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |spi_ecc_128bit|ecc_top_128bit:ecc_core|main_128bit:main_ins|state                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0|shift_taps_dpm:auto_generated|altsyncram_bo31:altsyncram4 ;
++---------------------------------+--------------------+------+--------------------------------------------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                                                         ;
++---------------------------------+--------------------+------+--------------------------------------------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                                                          ;
++---------------------------------+--------------------+------+--------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ecc_top_128bit:ecc_core|main_128bit:main_ins ;
++----------------+-------+------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                             ;
++----------------+-------+------------------------------------------------------------------+
+; IDLE           ; 00001 ; Unsigned Binary                                                  ;
+; DATAIN         ; 00010 ; Unsigned Binary                                                  ;
+; CYCLE1         ; 00100 ; Unsigned Binary                                                  ;
+; COMPUTE        ; 01000 ; Unsigned Binary                                                  ;
+; DONE           ; 10000 ; Unsigned Binary                                                  ;
++----------------+-------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0 ;
++----------------+----------------+----------------------------------------------------------------------------------------+
+; Parameter Name ; Value          ; Type                                                                                   ;
++----------------+----------------+----------------------------------------------------------------------------------------+
+; WIDTH_BYTEENA  ; 1              ; Untyped                                                                                ;
+; NUMBER_OF_TAPS ; 1              ; Untyped                                                                                ;
+; TAP_DISTANCE   ; 3              ; Untyped                                                                                ;
+; WIDTH          ; 128            ; Untyped                                                                                ;
+; POWER_UP_STATE ; CLEARED        ; Untyped                                                                                ;
+; CBXI_PARAMETER ; shift_taps_dpm ; Untyped                                                                                ;
++----------------+----------------+----------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------+
+; altshift_taps Parameter Settings by Entity Instance                                                  ;
++----------------------------+-------------------------------------------------------------------------+
+; Name                       ; Value                                                                   ;
++----------------------------+-------------------------------------------------------------------------+
+; Number of entity instances ; 1                                                                       ;
+; Entity Instance            ; ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0 ;
+;     -- NUMBER_OF_TAPS      ; 1                                                                       ;
+;     -- TAP_DISTANCE        ; 3                                                                       ;
+;     -- WIDTH               ; 128                                                                     ;
++----------------------------+-------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ecc_top_128bit:ecc_core|core1_128bit:core1_ins"                                           ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port       ; Type   ; Severity ; Details                                                                             ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; A1_BP_OUT2 ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ecc_top_128bit:ecc_core|main_128bit:main_ins"                                         ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; opt_Rb ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 12                          ;
+; cycloneiii_ff         ; 2400                        ;
+;     CLR               ; 43                          ;
+;     CLR SCLR          ; 1                           ;
+;     ENA               ; 148                         ;
+;     ENA CLR           ; 1027                        ;
+;     ENA CLR SCLR      ; 264                         ;
+;     ENA CLR SLD       ; 262                         ;
+;     ENA SLD           ; 7                           ;
+;     plain             ; 648                         ;
+; cycloneiii_lcell_comb ; 1562                        ;
+;     arith             ; 28                          ;
+;         2 data inputs ; 28                          ;
+;     normal            ; 1534                        ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 9                           ;
+;         2 data inputs ; 276                         ;
+;         3 data inputs ; 722                         ;
+;         4 data inputs ; 525                         ;
+; cycloneiii_ram_block  ; 128                         ;
+;                       ;                             ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 1.38                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:03     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Sun Sep 21 16:41:21 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ecc -c ecc
+Info (20032): Parallel compilation is enabled and will use up to 2 processors
+Info (12021): Found 1 design units, including 1 entities, in source file /users/user/personal/anhh/giaotrinhmonhoc/khoaluantotnghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v
+    Info (12023): Found entity 1: spi_ecc_128bit File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file /users/user/personal/anhh/giaotrinhmonhoc/khoaluantotnghiep/esp_fpga ecdsa/ecc/rtl/ecc_top_128bit.v
+    Info (12023): Found entity 1: ecc_top_128bit File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/ecc_top_128bit.v Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file /users/user/personal/anhh/giaotrinhmonhoc/khoaluantotnghiep/esp_fpga ecdsa/ecc/rtl/main_128bit.v
+    Info (12023): Found entity 1: main_128bit File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/main_128bit.v Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file /users/user/personal/anhh/giaotrinhmonhoc/khoaluantotnghiep/esp_fpga ecdsa/ecc/rtl/core1_128bit.v
+    Info (12023): Found entity 1: core1_128bit File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/core1_128bit.v Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file /users/user/personal/anhh/giaotrinhmonhoc/khoaluantotnghiep/esp_fpga ecdsa/ecc/rtl/alu_128bit.v
+    Info (12023): Found entity 1: ALU_128bit File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/ALU_128bit.v Line: 4
+Info (12127): Elaborating entity "spi_ecc_128bit" for the top level hierarchy
+Info (12128): Elaborating entity "ecc_top_128bit" for hierarchy "ecc_top_128bit:ecc_core" File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v Line: 289
+Info (12128): Elaborating entity "main_128bit" for hierarchy "ecc_top_128bit:ecc_core|main_128bit:main_ins" File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/ecc_top_128bit.v Line: 57
+Info (12128): Elaborating entity "core1_128bit" for hierarchy "ecc_top_128bit:ecc_core|core1_128bit:core1_ins" File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/ecc_top_128bit.v Line: 78
+Info (12128): Elaborating entity "ALU_128bit" for hierarchy "ecc_top_128bit:ecc_core|core1_128bit:core1_ins|ALU_128bit:alu_inst" File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/core1_128bit.v Line: 52
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276034): Inferred altshift_taps megafunction from the following design logic: "ecc_top_128bit:ecc_core|main_128bit:main_ins|reg_Rb_rtl_0"
+        Info (286033): Parameter NUMBER_OF_TAPS set to 1
+        Info (286033): Parameter TAP_DISTANCE set to 3
+        Info (286033): Parameter WIDTH set to 128
+Info (12130): Elaborated megafunction instantiation "ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0"
+Info (12133): Instantiated megafunction "ecc_top_128bit:ecc_core|main_128bit:main_ins|altshift_taps:reg_Rb_rtl_0" with the following parameter:
+    Info (12134): Parameter "NUMBER_OF_TAPS" = "1"
+    Info (12134): Parameter "TAP_DISTANCE" = "3"
+    Info (12134): Parameter "WIDTH" = "128"
+Info (12021): Found 1 design units, including 1 entities, in source file db/shift_taps_dpm.tdf
+    Info (12023): Found entity 1: shift_taps_dpm File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/shift_taps_dpm.tdf Line: 28
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_bo31.tdf
+    Info (12023): Found entity 1: altsyncram_bo31 File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/altsyncram_bo31.tdf Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_24e.tdf
+    Info (12023): Found entity 1: add_sub_24e File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/add_sub_24e.tdf Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_6pf.tdf
+    Info (12023): Found entity 1: cntr_6pf File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/cntr_6pf.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr_ogc.tdf
+    Info (12023): Found entity 1: cmpr_ogc File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/db/cmpr_ogc.tdf Line: 22
+Info (13000): Registers with preset signals will power-up high File: C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/rtl/spi_ecc_128bit.v Line: 232
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 6 registers lost all their fanouts during netlist optimizations.
+Info (128000): Starting physical synthesis optimizations for speed
+Info (332104): Reading SDC File: 'ecc.sdc'
+Critical Warning (332168): The following clock transfers have no clock uncertainty assignment. For more accurate results, apply clock uncertainty assignments or use the derive_clock_uncertainty command.
+    Critical Warning (332169): From clk_50 (Rise) to clk_50 (Rise) (setup and hold)
+    Critical Warning (332169): From spi_clk (Rise) to spi_clk (Rise) (setup and hold)
+    Critical Warning (332169): From spi_clk (Fall) to spi_clk (Rise) (setup and hold)
+    Critical Warning (332169): From spi_clk (Rise) to spi_clk (Fall) (setup and hold)
+Info (332129): Detected timing requirements -- optimizing circuit to achieve only the specified requirements
+Info (332111): Found 2 clocks
+    Info (332111):   Period   Clock Name
+    Info (332111): ======== ============
+    Info (332111):   20.000       clk_50
+    Info (332111):  100.000      spi_clk
+Info (128002): Starting physical synthesis algorithm register retiming
+Info (128003): Physical synthesis algorithm register retiming complete: estimated slack improvement of 0 ps
+Info (128002): Starting physical synthesis algorithm combinational resynthesis using boolean division
+Info (128003): Physical synthesis algorithm combinational resynthesis using boolean division complete: estimated slack improvement of 0 ps
+Info (128001): Physical synthesis optimizations for speed complete: elapsed time is 00:00:00
+Info (144001): Generated suppressed messages file C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/output_files/ecc.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 2880 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 6 input pins
+    Info (21059): Implemented 6 output pins
+    Info (21061): Implemented 2740 logic cells
+    Info (21064): Implemented 128 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 4821 megabytes
+    Info: Processing ended: Sun Sep 21 16:41:33 2025
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:21
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/User/Personal/Anhh/GiaoTrinhMonHoc/KhoaLuanTotNghiep/esp_fpga ecdsa/ecc/quartus/output_files/ecc.map.smsg.
+
+

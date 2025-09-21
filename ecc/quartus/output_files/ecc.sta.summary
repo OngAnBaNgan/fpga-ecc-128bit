@@ -1,0 +1,125 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'clk_50'
+Slack : 8.124
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Setup 'spi_clk'
+Slack : 30.506
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clk_50'
+Slack : 0.320
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'spi_clk'
+Slack : 0.452
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'clk_50'
+Slack : 35.006
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'spi_clk'
+Slack : 38.939
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'clk_50'
+Slack : 3.793
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'spi_clk'
+Slack : 4.322
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk_50'
+Slack : 9.594
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'spi_clk'
+Slack : 49.671
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'clk_50'
+Slack : 8.878
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'spi_clk'
+Slack : 31.314
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clk_50'
+Slack : 0.310
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'spi_clk'
+Slack : 0.400
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'clk_50'
+Slack : 35.379
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'spi_clk'
+Slack : 39.376
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'clk_50'
+Slack : 3.404
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'spi_clk'
+Slack : 4.062
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk_50'
+Slack : 9.594
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'spi_clk'
+Slack : 49.702
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'clk_50'
+Slack : 11.644
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'spi_clk'
+Slack : 36.050
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clk_50'
+Slack : 0.095
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'spi_clk'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'clk_50'
+Slack : 37.680
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'spi_clk'
+Slack : 40.463
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'clk_50'
+Slack : 1.697
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'spi_clk'
+Slack : 3.077
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk_50'
+Slack : 9.199
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'spi_clk'
+Slack : 49.212
+TNS   : 0.000
+
+------------------------------------------------------------

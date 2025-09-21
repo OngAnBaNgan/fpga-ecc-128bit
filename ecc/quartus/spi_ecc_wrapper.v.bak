@@ -1,0 +1,256 @@
+// spi_ecc_wrapper.v - SPI Interface Wrapper for ECC Core + ESP32
+// Provides SPI communication and GPIO handshaking for ESP32
+
+module spi_ecc_wrapper(
+    // Clock and Reset
+    input clk,              // 50MHz main clock
+    input rst_n,            // Active-low reset
+    
+    // SPI Interface (ESP32 as master)
+    input spi_clk,          // SPI clock from ESP32
+    input spi_mosi,         // SPI data from ESP32  
+    output spi_miso,        // SPI data to ESP32
+    input spi_cs_n,         // SPI chip select (active low)
+    
+    // GPIO Handshaking
+    input enable_gpio,      // Start computation signal from ESP32
+    output reg done_gpio,   // Computation done signal to ESP32
+    
+    // Debug LEDs (optional)
+    output reg [3:0] debug_leds
+);
+
+// SPI State Machine
+localparam SPI_IDLE = 3'b000;
+localparam SPI_ADDR = 3'b001; 
+localparam SPI_DATA = 3'b010;
+localparam SPI_WAIT = 3'b011;
+
+reg [2:0] spi_state;
+reg [7:0] spi_addr;
+reg [7:0] spi_byte_cnt;
+reg [7:0] spi_bit_cnt;
+reg [7:0] spi_rx_byte;
+reg [7:0] spi_tx_byte;
+reg spi_cs_sync, spi_cs_prev;
+
+// Data Buffers for 163-bit values
+reg [162:0] buffer_x;       // Point X coordinate  
+reg [162:0] buffer_y;       // Point Y coordinate
+reg [162:0] buffer_k;       // Scalar k
+reg [162:0] buffer_b;       // Base point parameter
+reg [162:0] result_dx;      // Result X coordinate
+reg [162:0] result_dy;      // Result Y coordinate
+
+// ECC Core Interface
+reg ecc_enable;
+reg ecc_rst;
+wire [162:0] ecc_din;
+wire [162:0] ecc_dx, ecc_dy;
+wire ecc_done;
+
+// ECC State Machine  
+localparam ECC_IDLE = 2'b00;
+localparam ECC_LOAD = 2'b01;
+localparam ECC_COMPUTE = 2'b10;
+localparam ECC_DONE = 2'b11;
+
+reg [1:0] ecc_state;
+reg [7:0] ecc_load_cnt;
+reg data_ready;
+
+// Synchronize SPI CS to main clock domain
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        spi_cs_sync <= 1'b1;
+        spi_cs_prev <= 1'b1;
+    end else begin
+        spi_cs_sync <= spi_cs_n;
+        spi_cs_prev <= spi_cs_sync;
+    end
+end
+
+wire spi_cs_falling = spi_cs_prev & ~spi_cs_sync;
+wire spi_cs_rising = ~spi_cs_prev & spi_cs_sync;
+
+// SPI Receiver (on SPI clock)
+always @(posedge spi_clk or posedge spi_cs_n) begin
+    if (spi_cs_n) begin
+        spi_state <= SPI_IDLE;
+        spi_bit_cnt <= 0;
+        spi_byte_cnt <= 0;
+    end else begin
+        case (spi_state)
+            SPI_IDLE: begin
+                spi_bit_cnt <= 0;
+                spi_byte_cnt <= 0;
+                spi_state <= SPI_ADDR;
+            end
+            
+            SPI_ADDR: begin
+                spi_rx_byte <= {spi_rx_byte[6:0], spi_mosi};
+                spi_bit_cnt <= spi_bit_cnt + 1;
+                if (spi_bit_cnt == 7) begin
+                    spi_addr <= {spi_rx_byte[6:0], spi_mosi};
+                    spi_bit_cnt <= 0;
+                    spi_state <= SPI_DATA;
+                end
+            end
+            
+            SPI_DATA: begin
+                spi_rx_byte <= {spi_rx_byte[6:0], spi_mosi};
+                spi_bit_cnt <= spi_bit_cnt + 1;
+                if (spi_bit_cnt == 7) begin
+                    // Store received byte based on address
+                    case (spi_addr)
+                        8'h10: buffer_x[162:155] <= {spi_rx_byte[6:0], spi_mosi}; // X coordinate
+                        8'h11: buffer_x[154:147] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h12: buffer_x[146:139] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h13: buffer_x[138:131] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h14: buffer_x[130:123] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h15: buffer_x[122:115] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h16: buffer_x[114:107] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h17: buffer_x[106:99] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h18: buffer_x[98:91] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h19: buffer_x[90:83] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h1A: buffer_x[82:75] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h1B: buffer_x[74:67] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h1C: buffer_x[66:59] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h1D: buffer_x[58:51] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h1E: buffer_x[50:43] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h1F: buffer_x[42:35] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h20: buffer_x[34:27] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h21: buffer_x[26:19] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h22: buffer_x[18:11] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h23: buffer_x[10:3] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h24: buffer_x[2:0] <= {spi_rx_byte[4:0], spi_mosi}; // Last 3 bits
+                        
+                        // Y coordinate (0x30-0x44)
+                        8'h30: buffer_y[162:155] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h31: buffer_y[154:147] <= {spi_rx_byte[6:0], spi_mosi};
+                        // ... (similar pattern for Y)
+                        
+                        // Scalar k (0x50-0x64) 
+                        8'h50: buffer_k[162:155] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h51: buffer_k[154:147] <= {spi_rx_byte[6:0], spi_mosi};
+                        // ... (similar pattern for k)
+                        
+                        // Base point parameter (0x70-0x84)
+                        8'h70: buffer_b[162:155] <= {spi_rx_byte[6:0], spi_mosi};
+                        8'h71: buffer_b[154:147] <= {spi_rx_byte[6:0], spi_mosi};
+                        // ... (similar pattern for b)
+                        
+                        8'hFF: data_ready <= 1'b1; // Start computation command
+                    endcase
+                    
+                    spi_bit_cnt <= 0;
+                    spi_byte_cnt <= spi_byte_cnt + 1;
+                end
+            end
+        endcase
+    end
+end
+
+// SPI Transmitter (send results back)
+always @(negedge spi_clk or posedge spi_cs_n) begin
+    if (spi_cs_n) begin
+        spi_tx_byte <= 8'h00;
+    end else begin
+        case (spi_addr)
+            // Read result X coordinate (0x90-0xA4)
+            8'h90: spi_tx_byte <= result_dx[162:155];
+            8'h91: spi_tx_byte <= result_dx[154:147]; 
+            // ... (similar for all result bytes)
+            
+            // Read result Y coordinate (0xB0-0xC4)  
+            8'hB0: spi_tx_byte <= result_dy[162:155];
+            // ...
+            
+            // Status register
+            8'hF0: spi_tx_byte <= {7'b0, ecc_done};
+            default: spi_tx_byte <= 8'h00;
+        endcase
+    end
+end
+
+assign spi_miso = spi_tx_byte[7 - spi_bit_cnt];
+
+// ECC Control State Machine
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        ecc_state <= ECC_IDLE;
+        ecc_enable <= 1'b0;
+        ecc_rst <= 1'b0;
+        ecc_load_cnt <= 0;
+        done_gpio <= 1'b0;
+        data_ready <= 1'b0;
+        debug_leds <= 4'h0;
+    end else begin
+        case (ecc_state)
+            ECC_IDLE: begin
+                done_gpio <= 1'b0;
+                debug_leds[0] <= 1'b1; // Idle indicator
+                if (enable_gpio && data_ready) begin
+                    ecc_state <= ECC_LOAD;
+                    ecc_load_cnt <= 0;
+                    data_ready <= 1'b0;
+                    debug_leds <= 4'h2; // Loading
+                end
+            end
+            
+            ECC_LOAD: begin
+                // Load data sequence: X, Y, K, B
+                ecc_enable <= 1'b1;
+                ecc_load_cnt <= ecc_load_cnt + 1;
+                if (ecc_load_cnt >= 4) begin
+                    ecc_state <= ECC_COMPUTE;
+                    debug_leds <= 4'h4; // Computing
+                end
+            end
+            
+            ECC_COMPUTE: begin
+                if (ecc_done) begin
+                    result_dx <= ecc_dx;
+                    result_dy <= ecc_dy;
+                    ecc_state <= ECC_DONE;
+                    debug_leds <= 4'h8; // Done
+                end
+            end
+            
+            ECC_DONE: begin
+                done_gpio <= 1'b1;
+                ecc_enable <= 1'b0;
+                if (!enable_gpio) begin
+                    ecc_state <= ECC_IDLE;
+                end
+            end
+        endcase
+    end
+end
+
+// Data input multiplexer for ECC core
+assign ecc_din = (ecc_load_cnt == 0) ? buffer_x :
+                 (ecc_load_cnt == 1) ? buffer_y :
+                 (ecc_load_cnt == 2) ? buffer_k :
+                 buffer_b;
+
+// Reset logic
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n)
+        ecc_rst <= 1'b0;
+    else
+        ecc_rst <= rst_n;
+end
+
+// Instantiate original ECC core
+ecc ecc_core (
+    .clk(clk),
+    .rst(ecc_rst), 
+    .enable(ecc_enable),
+    .din(ecc_din),
+    .dx(ecc_dx),
+    .dy(ecc_dy), 
+    .done(ecc_done)
+);
+
+endmodule

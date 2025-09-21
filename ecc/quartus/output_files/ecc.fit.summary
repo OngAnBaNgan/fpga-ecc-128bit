@@ -1,0 +1,16 @@
+Fitter Status : Successful - Sun Sep 21 16:41:43 2025
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : ecc
+Top-level Entity Name : spi_ecc_128bit
+Family : Cyclone IV E
+Device : EP4CE6E22C8
+Timing Models : Final
+Total logic elements : 2,547 / 6,272 ( 41 % )
+    Total combinational functions : 1,562 / 6,272 ( 25 % )
+    Dedicated logic registers : 2,400 / 6,272 ( 38 % )
+Total registers : 2401
+Total pins : 12 / 92 ( 13 % )
+Total virtual pins : 0
+Total memory bits : 384 / 276,480 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )
